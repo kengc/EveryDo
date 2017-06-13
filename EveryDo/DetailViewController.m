@@ -7,8 +7,10 @@
 //
 
 #import "DetailViewController.h"
+#import "ToDo.h"
 
 @interface DetailViewController ()
+
 
 @end
 
@@ -19,7 +21,8 @@
 - (void)setDetailItem:(id)newDetailItem {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
-            
+        
+        
         // Update the view.
         [self configureView];
     }
@@ -29,7 +32,14 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+    
+        self.detailTitle.text = [self.detailItem title];
+        
+        NSString *isDone = [NSString stringWithFormat:@"Complete: %s", [self.detailItem isCompleted]? "YES" : "NO"];
+        self.detailIsDone.text = isDone;
+        
+        self.DetailPriority.text = [NSString  stringWithFormat:@"Priority: %d", [self.detailItem priorityNumber]];
+        self.detailDescription.text = [self.detailItem todoDescription];
     }
 }
 

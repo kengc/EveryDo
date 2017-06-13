@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priorityOutletVar;
 
 @property (weak, nonatomic) IBOutlet UILabel *descOutletVar;
+@property (weak, nonatomic) IBOutlet UILabel *isDoneOutletVar;
 
 
 -(void) displayDetails:(NSMutableArray *)todoArray;

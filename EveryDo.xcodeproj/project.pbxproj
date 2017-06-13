@@ -69,8 +69,8 @@
 			children = (
 				738E1CD71EF05C1000C19B8C /* AppDelegate.h */,
 				738E1CD81EF05C1000C19B8C /* AppDelegate.m */,
-				738E1CDE1EF05C1000C19B8C /* DetailViewController.m */,
 				738E1CDD1EF05C1000C19B8C /* DetailViewController.h */,
+				738E1CDE1EF05C1000C19B8C /* DetailViewController.m */,
 				738E1CDA1EF05C1000C19B8C /* MasterViewController.h */,
 				738E1CDB1EF05C1000C19B8C /* MasterViewController.m */,
 				738E1CEE1EF05C6100C19B8C /* TableViewCell.h */,

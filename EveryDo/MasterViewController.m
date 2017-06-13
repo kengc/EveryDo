@@ -19,6 +19,8 @@
 @property (nonatomic) NSMutableArray *todoArray;
 
 @property (nonatomic) TableViewCell *tableCell;
+
+@property (nonatomic, strong) NSIndexPath *currentlySelectedIndexPath;
 @end
 
 @implementation MasterViewController
@@ -73,16 +75,38 @@
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+#pragma mark - Table View Delegate
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   NSLog(@"Table view cell tapped at row: %li", (long)indexPath.row);
+    
+    self.currentlySelectedIndexPath = indexPath;
+    
+   // [self performSegueWithIdentifier:@"showDetail" sender:self];
+    
+    // Needs refactoring for drinks
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        ToDo *todo = self.todoArray[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
-        [controller setDetailItem:object];
+        [controller setDetailItem:todo];
     }
+    
+    
+    
+//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        NSDate *object = self.objects[indexPath.row];
+//        DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
+//        [controller setDetailItem:object];
+//    }
 }
 
 
@@ -130,35 +154,13 @@
          cell.descOutletVar.text = todo.todoDescription;
     }
     
-    cell.priorityOutletVar.text = [NSString  stringWithFormat:@"%d", todo.priorityNumber];
-    
+    //BOOL isKind= [todo.isCompleted isKindOfClass:[NSString class]];
 
+    cell.isDoneOutletVar.text = [NSString stringWithFormat:@"Complete: %s", todo.isCompleted ? "YES" : "NO"];
+    cell.priorityOutletVar.text = [NSString  stringWithFormat:@"Priority: %d", todo.priorityNumber];
     
-    //NSDate *object = self.objects[indexPath.row];
-    //TableViewCell *object = self.todoArray[indexPath.row];
-    //cell.textLabel.text = [object description];
-
     
     return cell;
-    
-    
-    
-    // UITAbleViewCell *cell = [[UITableViewCell alloc] init];  //this is a problem for memmory so instead of creathign
-    //UITableViewCell *cell = [tablView dequeuReusableCellWithIdentifier:@"BasicCell"];  //down below to setup
-    //FoodTAbleViewCell *cell = [tablView dequeuReusableCellWithIdentifier:@"BasicCell"];  //down below to setup
-    
-    //indexPath.section. //we only have one section so ignore for now
-    //indexPath.row.  //current cell that needs to be created at index 0
-    
-    //NSSTring *foodTitle = self.foods[IndexPath.row];  //both are 0 index
-    //cell.textlabel.text = foodTitle;
-    
-    //cell.foodLabel.text = foodTitle;
-    //cell.FoodimageView.image = [UIIMage imageNamed:@"some.jpg"];
-    
-    ///////table View from xcode UI...click drag from table view element to view controller as the data source and delegate ///////////////
-    //indexpath array of arrays
-    
 }
 
 
