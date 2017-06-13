@@ -40,6 +40,7 @@
     ToDo *task1 = [[ToDo alloc] initWithTitle:@"Task1" andDescription:@"gotta get this task done" andPriority:0];
     ToDo *task2 = [[ToDo alloc] initWithTitle:@"Task2" andDescription:@"gotta get another task done" andPriority:1];
     ToDo *task3 = [[ToDo alloc] initWithTitle:@"Task3" andDescription:@"yet another task" andPriority:2];
+    task3.isCompleted = YES;
     
     [self.todoArray addObject:task1];
     [self.todoArray addObject:task2];
@@ -116,7 +117,19 @@
     ToDo *todo = self.todoArray[indexPath.row];
     
     cell.titleVarOutlet.text = todo.title;
-    cell.descOutletVar.text = todo.todoDescription;
+    
+    if(todo.isCompleted){
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:todo.todoDescription attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleNone)}];
+        
+        NSRange range = NSMakeRange(0, todo.todoDescription.length);
+        
+        [string addAttributes:@{NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)} range:range];
+        
+         cell.descOutletVar.attributedText = string;
+    } else{
+         cell.descOutletVar.text = todo.todoDescription;
+    }
+    
     cell.priorityOutletVar.text = [NSString  stringWithFormat:@"%d", todo.priorityNumber];
     
 
