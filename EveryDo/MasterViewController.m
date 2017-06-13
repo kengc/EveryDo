@@ -193,7 +193,6 @@
     if(todo){
         //add to the array
         [self.todoArray addObject:todo];
-    
         [self.tableView reloadData];
     }
 }

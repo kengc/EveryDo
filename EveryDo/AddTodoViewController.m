@@ -66,6 +66,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)cancelAction:(UIButton *)sender {
+        [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation
