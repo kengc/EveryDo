@@ -241,7 +241,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGr-BY-pdR">
                                 <rect key="frame" x="124" y="637" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
+                                <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="addNewTodo:" destination="4Et-4V-58t" eventType="touchUpInside" id="phz-xz-7jD"/>
                                 </connections>
