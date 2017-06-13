@@ -10,6 +10,17 @@
 
 @interface TableViewCell : UITableViewCell
 
+//@property (weak, nonatomic) IBOutlet UILabel *titleOutletVar;
+@property (weak, nonatomic) IBOutlet UILabel *titleVarOutlet;
+
+@property (weak, nonatomic) IBOutlet UILabel *priorityOutletVar;
+
+@property (weak, nonatomic) IBOutlet UILabel *descOutletVar;
+
+
 -(void) displayDetails:(NSMutableArray *)todoArray;
+
+
+
 
 @end
