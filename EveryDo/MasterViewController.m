@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "ToDo.h"
 #import "TableViewCell.h"
+#import "AddTodoViewController.h"
 
 
 @interface MasterViewController ()
@@ -36,6 +37,7 @@
     
     
     //////////my stuff/////////
+
     
     self.tableCell = [[TableViewCell alloc] init];
     self.todoArray = [[NSMutableArray alloc] init];
@@ -67,12 +69,16 @@
 
 
 - (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    if (!self.objects) {
+//        self.objects = [[NSMutableArray alloc] init];
+//    }
+//    [self.objects insertObject:[NSDate date] atIndex:0];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    
+    [self performSegueWithIdentifier:@"ShowAddNewTodo" sender:self];
+
 }
 
 #pragma mark - Table View Delegate
@@ -83,7 +89,7 @@
     
     self.currentlySelectedIndexPath = indexPath;
     
-   // [self performSegueWithIdentifier:@"showDetail" sender:self];
+    //[self performSegueWithIdentifier:@"showDetail" sender:self];
     
     // Needs refactoring for drinks
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -99,6 +105,20 @@
         [controller setDetailItem:todo];
     }
     
+    if ([[segue identifier] isEqualToString:@"ShowAddNewTodo"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        ToDo *todo = self.todoArray[indexPath.row];
+        AddTodoViewController *controller = (AddTodoViewController *)[segue destinationViewController];
+        controller.delegate = self;
+        [controller setDetailItem:todo];
+    }
+    
+//    if ([[segue identifier] isEqualToString:@"EditDetails"]) {
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        ToDo *todo = self.todoArray[indexPath.row];
+//        AddTodoViewController *controller = (AddTodoViewController *)[segue destinationViewController];
+//        [controller setDetailItem:todo];
+//    }
     
     
 //    if ([[segue identifier] isEqualToString:@"showDetail"]) {
@@ -167,6 +187,15 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
+}
+
+-(void)AddNewTodo:(ToDo *)todo{
+    if(todo){
+        //add to the array
+        [self.todoArray addObject:todo];
+    
+        [self.tableView reloadData];
+    }
 }
 
 
