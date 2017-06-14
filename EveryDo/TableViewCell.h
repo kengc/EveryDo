@@ -7,8 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ToDo.h"
+
+@class TableViewCell;
+
+@protocol TableViewCellDelegate <NSObject>
+
+-(void)tableViewCellDidSwipe:(TableViewCell *)cell;
+
+@end
 
 @interface TableViewCell : UITableViewCell
+
+//can set properties of the cell that the VC sets just to get (VC) them back later
+
+
+@property (weak, nonatomic) id<TableViewCellDelegate> delegate;
 
 //@property (weak, nonatomic) IBOutlet UILabel *titleOutletVar;
 @property (weak, nonatomic) IBOutlet UILabel *titleVarOutlet;

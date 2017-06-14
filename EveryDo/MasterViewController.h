@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AddTodoViewController.h"
+#import "TableViewCell.h"
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, AddTodoDelegate>
+@interface MasterViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, AddTodoDelegate, TableViewCellDelegate>
 
 
 @end

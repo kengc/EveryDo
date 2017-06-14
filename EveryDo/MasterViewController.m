@@ -37,10 +37,11 @@
     
     
     //////////my stuff/////////
-
     
-    self.tableCell = [[TableViewCell alloc] init];
+    //self.tableCell = [[TableViewCell alloc] init];
+    
     self.todoArray = [[NSMutableArray alloc] init];
+    
     ToDo *task1 = [[ToDo alloc] initWithTitle:@"Task1" andDescription:@"gotta get this task done" andPriority:0];
     ToDo *task2 = [[ToDo alloc] initWithTitle:@"Task2" andDescription:@"gotta get another task done" andPriority:1];
     ToDo *task3 = [[ToDo alloc] initWithTitle:@"Task3" andDescription:@"yet another task" andPriority:2];
@@ -50,16 +51,26 @@
     [self.todoArray addObject:task2];
     [self.todoArray addObject:task3];
     
-    [self.tableCell displayDetails:self.todoArray];
-    
-    
-    //////////my stuff/////////
+   // [self.tableCell displayDetails:self.todoArray];
     
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
+
+-(void)tableViewCellDidSwipe:(TableViewCell *)cell{
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    //passed a pointer reference to the arrayObject
+    ///there for i can modify without haveing to use addObject
+    
+    ToDo *todo = [self.todoArray objectAtIndex:indexPath.row];
+    todo.isCompleted = YES;
+    //[self.todoArray addObject:todo];
+    [self.tableView reloadData];
+
 }
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -107,7 +118,8 @@
     
     if ([[segue identifier] isEqualToString:@"ShowAddNewTodo"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        ToDo *todo = self.todoArray[indexPath.row];
+        ToDo *todo = self.todoArray[indexPath.row]; //this is for editing
+        
         AddTodoViewController *controller = (AddTodoViewController *)[segue destinationViewController];
         controller.delegate = self;
         [controller setDetailItem:todo];
@@ -120,13 +132,6 @@
 //        [controller setDetailItem:todo];
 //    }
     
-    
-//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        NSDate *object = self.objects[indexPath.row];
-//        DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
-//        [controller setDetailItem:object];
-//    }
 }
 
 
@@ -150,7 +155,7 @@
     
     // Setup our cell and hand it to the table view
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BasicCell"];
-    
+    cell.delegate = self;
 //    NSString *title;
 //    if (indexPath.section == 0) {
 //        title = self.foods[indexPath.row];

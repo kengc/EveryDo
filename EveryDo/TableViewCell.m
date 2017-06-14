@@ -8,12 +8,35 @@
 
 #import "TableViewCell.h"
 
+
 @implementation TableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    UISwipeGestureRecognizer *swipe1Gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(viewSwipe:)];
+    swipe1Gesture.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    [self addGestureRecognizer:swipe1Gesture];
 }
+
+-(void)viewSwipe:(UISwipeGestureRecognizer *)sender{
+    //When the gesture fires, update your data model objects and rearrange your list
+    
+    switch (sender.direction) {
+        case UISwipeGestureRecognizerDirectionRight:{
+            NSLog(@"I GOT SWIPED!!");
+            [self.delegate tableViewCellDidSwipe:self];
+            break;
+        default: ;
+            break;
+        }
+            break;
+    }
+}
+
+
 
 -(void) displayDetails:(NSMutableArray *)todoArray{
     
